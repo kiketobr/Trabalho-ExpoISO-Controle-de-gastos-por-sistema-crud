@@ -8,7 +8,7 @@ from matplotlib.figure import Figure
 from tkcalendar import Calendar, DateEntry
 from datetime import date
 from tkinter import messagebox
-from view import bar_valores,inserir_gastos,inserir_categoria,inserir_receita,ver_categoria,ver_gastos,ver_receitas,deletar_categorias,deletar_gastos,deletar_receitas,tabela,porcentagem_valor
+from view import bar_valores,inserir_gastos,inserir_categoria,inserir_receita,ver_categoria,ver_gastos,ver_receitas,deletar_categorias,deletar_gastos,deletar_receitas,tabela,porcentagem_valor,pie_valores
 ################# cores #######.
 
 co0 = "#2e2d2b"  # Preta
@@ -71,7 +71,7 @@ def inserir_categoria_b():
         if i=='':
             messagebox.showerror('erro','preencha todos os campos')
             return
-            inserir_categoria(lista_inserir)
+    inserir_categoria(lista_inserir)
     messagebox.showinfo('sucesso','os dados foram inseridos com sucesso')
 
     e_n_categoria.delete(0,'end')
@@ -262,8 +262,8 @@ def grafico_pie():
     # faça figura e atribua objetos de eixo
     figura = plt.Figure(figsize=(5, 3), dpi=90)
     ax = figura.add_subplot(111)
-    lista_valores = [345,225,534]
-    lista_categorias = ['Renda', 'Despesa', 'Saldo']
+    lista_valores = pie_valores()[1]
+    lista_categorias = pie_valores()[0]
 
     # only "explode" the 2nd slice (i.e. 'Hogs')
     explode = []

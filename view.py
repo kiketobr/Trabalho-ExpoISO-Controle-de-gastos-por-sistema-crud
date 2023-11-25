@@ -1,4 +1,5 @@
 import sqlite3 as lite
+import pandas as pd
 
 con= lite.connect('dados.db')
 
@@ -135,4 +136,23 @@ def porcentagem_valor():
         # Despesas Total ------------------------
     porcentagem = (1-((receita_total-despesas_total)/receita_total))*100
     return[porcentagem]
-    
+
+def pie_valores():
+    gastos = ver_gastos()
+    tabela_lista = []
+
+    for i in gastos:
+        tabela_lista.append(i)
+
+    dataframe = pd.DataFrame(tabela_lista,columns = ['id', 'categoria', 'Data', 'valor'])
+
+    # Get the sum of the durations per month
+    dataframe = dataframe.groupby('categoria')['valor'].sum()
+   
+    lista_quantias = dataframe.values.tolist()
+    lista_categorias = []
+
+    for i in dataframe.index:
+        lista_categorias.append(i)
+
+    return([lista_categorias,lista_quantias])
